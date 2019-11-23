@@ -1,16 +1,19 @@
 id: inspector_signal_separator_c
-label: signal_separator_c
-category: '[inspector]'
+label: Signal Separator
+category: '[Inspector]/Conditioning'
 
 templates:
-  imports: import inspector
+  imports: |-
+    import inspector
+    from gnuradio.filter import firdes
+    import json
   make: inspector.signal_separator_c(${samp_rate}, ${window}, ${trans_width}, ${oversampling}, ${taps_file}, ${std::map<float}, ${&file_path})
 
 #  Make one 'parameters' list entry for every Parameter you want settable from the GUI.
 #     Sub-entries of dictionary:
 #     * id (makes the value accessible as \$keyname, e.g. in the make entry)
 #     * label
-#     * dtype 
+#     * dtype
 parameters:
 - id: ...
   label: ...
@@ -24,7 +27,7 @@ parameters:
 #      * domain
 #      * dtype
 #      * vlen
-#      * optional (set to 1 for optional inputs) 
+#      * optional (set to 1 for optional inputs)
 inputs:
 - label: ...
   domain: ...
@@ -35,7 +38,7 @@ inputs:
 #      * label (an identifier for the GUI)
 #      * dtype
 #      * vlen
-#      * optional (set to 1 for optional inputs) 
+#      * optional (set to 1 for optional inputs)
 - label: ...
   domain: ...
   dtype: ... #!-- e.g. int, float, complex, byte, short, xxx_vector, ...--
