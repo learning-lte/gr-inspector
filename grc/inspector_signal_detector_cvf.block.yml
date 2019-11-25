@@ -4,7 +4,15 @@ category: '[Inspector]/Conditioning'
 
 templates:
   imports: import inspector
-  make: inspector.signal_detector_cvf(${samp_rate}, ${fft_len}, ${window_type}, ${threshold}, ${sensitivity}, ${auto_threshold}, ${average}, ${quantization}, ${min_bw}, ${*logfile})
+  make: inspector.signal_detector_cvf(${samp_rate}, ${fft_len}, ${window}, ${threshold}, ${sensitivity}, ${auto}, ${avg}, ${quant}, ${min_bw}, ${logfile})
+  callbacks:
+  - set_fft_len(${fft_len})
+  - set_window_type(${window})
+  - set_samp_rate(${samp_rate})
+  - set_sensitivity(${sensitivity})
+  - set_auto_threshold({$auto})
+  - set_average({$avg})
+  - set_quantization({$quant})
 
 #  Make one 'parameters' list entry for every Parameter you want settable from the GUI.
 #     Sub-entries of dictionary:
@@ -27,14 +35,18 @@ parameters:
   default: firdes.WIN_BLACKMAN_hARRIS
 - id: auto
   label: Auto threshold
-  options: [True, False]
-  option_labels: ['On', 'Off']
+  dtype: bool
   default: True
 - id: threshold
   label: Threshold (dB)
   dtype: float
   default: 0.7
   hide: ${('none' if auto else 'all')}
+- id: sensitivity
+  label: Sensitivity (0-1)
+  dtype: float
+  default: 0.2
+  hide: ${('all' if auto else 'none')}
 - id: avg
   label: Average IIR alpha
   dtype: real
@@ -71,6 +83,7 @@ inputs:
 #      * dtype
 #      * vlen
 #      * optional (set to 1 for optional inputs)
+outputs:
 - label: out
   domain: stream
   dtype: float

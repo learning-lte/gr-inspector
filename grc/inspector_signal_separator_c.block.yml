@@ -8,6 +8,11 @@ templates:
     from gnuradio.filter import firdes
     import json
   make: inspector.signal_separator_c(${samp_rate}, ${window}, ${trans_width}, ${oversampling}, ${taps_file}, ${std::map<float}, ${&file_path})
+  callbacks:
+  - set_samp_rate(${samp_rate})
+  - set_window(${window})
+  - set_trans_width(${trans_width})
+  - set oversampling(${oversample})
 
 #  Make one 'parameters' list entry for every Parameter you want settable from the GUI.
 #     Sub-entries of dictionary:
@@ -15,12 +20,30 @@ templates:
 #     * label
 #     * dtype
 parameters:
-- id: ...
-  label: ...
-  dtype: ...
-- id: ...
-  label: ...
-  dtype: ...
+- id: samp_rate
+  label: Samp rate
+  dtype: real
+- id: trans_width
+  label: Trans. width/cutoff
+  dtype: real
+- id: window
+  label: Window
+  dtype: enum
+  options: [firdes.WIN_BLACKMAN_hARRIS, firdes.WIN_HAMMING, firdes.WIN_HANN, firdes.WIN_BLACKMAN, firdes.WIN_RECTANGULAR, firdes.WIN_KAISER, firdes.WIN_FLATTOP]
+  option_labels: ['Blackman-Harris', 'Hamming', 'Hann', 'Blackman', 'Rectangular', 'Kaiser', 'Flat-top']
+  default: firdes.WIN_BLACKMAN_hARRIS
+- id: oversample
+  label: Oversampling
+  dtype: real
+- id: file
+  label: Use Taps file
+  dtype: bool
+  default: True
+- id: taps_file
+  label: Taps file
+  default: ''
+  dtype: file_open
+  hide: ${('none' if file else 'all')}
 
 #  Make one 'inputs' list entry per input. Sub-entries of dictionary:
 #      * label (an identifier for the GUI)
@@ -29,18 +52,19 @@ parameters:
 #      * vlen
 #      * optional (set to 1 for optional inputs)
 inputs:
-- label: ...
-  domain: ...
-  dtype: ...
-  vlen: ...
+- label: in
+  domain: stream
+  dtype: complex
+- label: map_in
+  domain: message
 
 #  Make one 'outputs' list entry per output. Sub-entries of dictionary:
 #      * label (an identifier for the GUI)
 #      * dtype
 #      * vlen
 #      * optional (set to 1 for optional inputs)
-- label: ...
-  domain: ...
-  dtype: ... #!-- e.g. int, float, complex, byte, short, xxx_vector, ...--
+outputs:
+- label: sig_out
+  domain: message
 
 file_format: 1

@@ -46,6 +46,7 @@ inputs:
 #      * dtype
 #      * vlen
 #      * optional (set to 1 for optional inputs)
+outputs:
 - label: out
   domain: stream
   dtype: complex

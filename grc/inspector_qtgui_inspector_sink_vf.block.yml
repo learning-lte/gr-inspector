@@ -1,4 +1,4 @@
-id: inspector_qtgui_inspector_sink_vf
+id: inspector_qtgui_sink_vf
 label: QT GUI Inspector Sink
 category: '[Inspector]/GUI'
 
@@ -58,10 +58,8 @@ parameters:
   default: 1
 - id: manual
   label: Manual selection
-  dtype: enum
+  dtype: bool
   default: True
-  options: [True, False]
-  option_labels: ['On', 'Off']
 - id: gui_hint
   label: GUI Hint
   dtype: gui_hint
@@ -90,6 +88,7 @@ inputs:
 #      * dtype
 #      * vlen
 #      * optional (set to 1 for optional inputs)
+outputs:
 - label: map_out
   domain: message
   optional: True
