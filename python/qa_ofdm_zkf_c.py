@@ -20,21 +20,22 @@
 #
 
 from gnuradio import gr, gr_unittest
-from gnuradio import blocks, analog
+from gnuradio import blocks
 import inspector_swig as inspector
 import numpy as np
 import time
 import pmt
 
+
 class qa_ofdm_zkf_c(gr_unittest.TestCase):
 
-    def setUp (self):
-        self.tb = gr.top_block ()
+    def setUp(self):
+        self.tb = gr.top_block()
 
-    def tearDown (self):
+    def tearDown(self):
         self.tb = None
 
-    def test_001_t (self):
+    def test_001_t(self):
         # set up fg
         fft_len = 256
         cp_len = 32
@@ -43,7 +44,7 @@ class qa_ofdm_zkf_c(gr_unittest.TestCase):
 
         timefreq = np.fft.ifft(data, axis=0)
 
-        #add cp
+        # add cp
         timefreq = np.hstack((timefreq[:, -cp_len:], timefreq))
 
         tx = np.reshape(timefreq, (1, -1))

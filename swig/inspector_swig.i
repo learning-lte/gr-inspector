@@ -7,6 +7,12 @@
 //load generated python docstrings
 %include "inspector_swig_doc.i"
 
+%include "std_map.i"
+
+namespace std {
+  %template(map_float_vector) map<float, vector<float> >;
+};
+
 %{
 #include "inspector/ofdm_synchronizer_cc.h"
 #include "inspector/ofdm_bouzegzi_c.h"

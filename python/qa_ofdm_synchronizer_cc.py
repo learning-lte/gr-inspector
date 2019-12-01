@@ -20,21 +20,22 @@
 #
 
 from gnuradio import gr, gr_unittest
-from gnuradio import blocks, channels, analog
+from gnuradio import blocks, analog
 import inspector_swig as inspector
 import numpy as np
 import time
 import pmt
 
+
 class qa_ofdm_synchronizer_cc(gr_unittest.TestCase):
 
-    def setUp (self):
-        self.tb = gr.top_block ()
+    def setUp(self):
+        self.tb = gr.top_block()
 
-    def tearDown (self):
+    def tearDown(self):
         self.tb = None
 
-    def test_001_t (self):
+    def test_001_t(self):
         #  set up fg
         fft_len = 256
         cp_len = 32
@@ -43,7 +44,7 @@ class qa_ofdm_synchronizer_cc(gr_unittest.TestCase):
 
         timefreq = np.fft.ifft(data, axis=0)
 
-        #add cp
+        # add cp
         timefreq = np.hstack((timefreq[:, -cp_len:], timefreq))
 
         # msg (only 4th and 5th tuples are needed)
@@ -92,7 +93,8 @@ class qa_ofdm_synchronizer_cc(gr_unittest.TestCase):
         output = output[k:k+10000]
         expect = expect[k:k+10000]
 
-        self.assertComplexTuplesAlmostEqual2(expect, output, abs_eps = 0.001, rel_eps=10)
+        self.assertComplexTuplesAlmostEqual2(
+            expect, output, abs_eps=0.001, rel_eps=10)
 
 
 if __name__ == '__main__':
