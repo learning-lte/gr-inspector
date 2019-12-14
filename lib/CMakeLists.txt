@@ -46,9 +46,6 @@ list(APPEND inspector_sources
     ofdm_synchronizer_cc_impl.cc
 )
 
-include(GrPython)
-
-
 set(inspector_sources "${inspector_sources}" PARENT_SCOPE)
 if(NOT inspector_sources)
     MESSAGE(STATUS "No C++ sources... skipping lib/")
@@ -56,13 +53,20 @@ if(NOT inspector_sources)
 endif(NOT inspector_sources)
 
 add_library(gnuradio-inspector SHARED ${inspector_sources})
+
+include(GrPython)
+
 target_link_libraries(gnuradio-inspector PUBLIC
                       gnuradio::gnuradio-runtime
                       gnuradio::gnuradio-fft
                       gnuradio::gnuradio-filter
                       qwt::qwt
-                      Qt5::Widgets
-                      Python::Python)
+                      Qt5::Widgets)
+if(ENABLE_PYTHON)
+    target_compile_definitions(gnuradio-inspector PUBLIC -DENABLE_PYTHON)
+    target_link_libraries(gnuradio-inspector PUBLIC Python::Python)
+endif(ENABLE_PYTHON)
+
 target_include_directories(gnuradio-inspector
     PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
     PUBLIC $<INSTALL_INTERFACE:include>

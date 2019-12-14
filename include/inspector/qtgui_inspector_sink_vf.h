@@ -21,6 +21,10 @@
 #ifndef INCLUDED_INSPECTOR_QTGUI_INSPECTOR_SINK_VF_H
 #define INCLUDED_INSPECTOR_QTGUI_INSPECTOR_SINK_VF_H
 
+#ifdef ENABLE_PYTHON
+  #include <Python.h>
+#endif
+
 #include <inspector/api.h>
 #include <gnuradio/sync_block.h>
 #include <qapplication.h>

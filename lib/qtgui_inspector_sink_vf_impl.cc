@@ -198,8 +198,7 @@ namespace gr {
     qtgui_inspector_sink_vf_impl::pyqwidget()
     {
       PyObject *w = PyLong_FromVoidPtr((void*)d_main_gui);
-      PyObject *retarg = Py_BuildValue("N", w);
-      return retarg;
+      return w;
     }
 #else
     void *
