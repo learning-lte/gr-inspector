@@ -7,7 +7,10 @@ templates:
     import inspector
     from gnuradio.filter import firdes
     import json
-  make: inspector.signal_separator_c(${samp_rate}, ${window}, ${trans_width}, ${oversampling}, ${taps_file}, ${std::map<float}, ${&file_path})
+  make: |-
+    inspector.signal_separator_c(${samp_rate}, ${window}, ${trans_width}, ${oversample}, ${file}, inspector.map_float_vector({float(k):v for k,v in json.loads(open(${taps_file}).read())})) \
+    if ${file} else \
+    inspector.signal_separator_c(${samp_rate}, ${window}, ${trans_width}, ${oversample}, ${file}, inspector.map_float_vector({0.0:[0.0]}))
   callbacks:
   - set_samp_rate(${samp_rate})
   - set_window(${window})

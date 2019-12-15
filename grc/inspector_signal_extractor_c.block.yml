@@ -14,6 +14,9 @@ templates:
 #     * label
 #     * dtype
 parameters:
+- id: signal
+  label: Signal
+  dtype: int
 - id: resample
   label: Resample signal
   dtype: bool

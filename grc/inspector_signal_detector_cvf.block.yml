@@ -41,12 +41,12 @@ parameters:
   label: Threshold (dB)
   dtype: float
   default: 0.7
-  hide: ${('none' if auto else 'all')}
+  hide: ${('all' if auto else 'none')}
 - id: sensitivity
   label: Sensitivity (0-1)
   dtype: float
   default: 0.2
-  hide: ${('all' if auto else 'none')}
+  hide: ${('none' if auto else 'all')}
 - id: avg
   label: Average IIR alpha
   dtype: real
