@@ -90,8 +90,8 @@ namespace gr {
           float bw = pmt::to_float(pmt::tuple_ref(pmt::vector_ref(msg, d_signal), 2));
           d_rate = d_out_rate/(d_oversampling*bw);
           d_resampler->set_rate(d_rate);
-          GR_LOG_INFO(d_logger, "Actual output sample rate: "+std::to_string(
-                  bw*d_oversampling*d_resampler->interpolation_rate()/d_resampler->decimation_rate()));
+          //GR_LOG_INFO(d_logger, "Actual output sample rate: "+std::to_string(
+                  //bw*d_oversampling*d_resampler->interpolation_rate()/d_resampler->decimation_rate()));
         }
       }
     }

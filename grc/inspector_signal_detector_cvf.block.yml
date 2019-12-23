@@ -13,6 +13,7 @@ templates:
   - set_auto_threshold({$auto})
   - set_average({$avg})
   - set_quantization({$quant})
+  - set_threshold(${threshold})
 
 #  Make one 'parameters' list entry for every Parameter you want settable from the GUI.
 #     Sub-entries of dictionary:
